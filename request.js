@@ -1126,8 +1126,8 @@ Request.prototype.readResponseBody = function (response) {
     if (bufferLength) {
       debug('has body', self.uri.href, bufferLength)
       response.body = Buffer.concat(buffers, bufferLength)
-      if (self.encodeBodyToBase64) {
-        response.body = response.body.toString('base64')
+      if (self.bufferEncoding !== null && Buffer.isEncoding(self.bufferEncoding)) {
+        response.body = response.body.toString(self.bufferEncoding)
       } else if (self.encoding !== null) {
         response.body = response.body.toString(self.encoding)
       }
